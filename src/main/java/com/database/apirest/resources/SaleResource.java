@@ -2,8 +2,8 @@ package com.database.apirest.resources;
 
 import java.util.List;
 
-import com.database.apirest.models.Product;
-import com.database.apirest.repository.ProductRepository;
+import com.database.apirest.models.Sale;
+import com.database.apirest.repository.SaleRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -18,35 +18,36 @@ import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/products")
-public class ProductResource {
+@RequestMapping("/sales")
+
+public class SaleResource {
 	
 	@Autowired
-	ProductRepository productRepository;
+	SaleRepository saleRepository;
 	
 	@GetMapping
-	public List<Product> listProducts(){
-		return productRepository.findAll();
+	public List<Sale> listClients(){
+		return saleRepository.findAll();
 	}
 	
 	@GetMapping("/{id}")
-	public Product listProduct(@PathVariable(value="id") long id){
-		return productRepository.findById(id);
+	public Sale listSale(@PathVariable(value="id") long id){
+		return saleRepository.findById(id);
 	}
 	
 	@PostMapping
-	public Product saveProduct(@RequestBody Product product) {
-		return productRepository.save(product);
+	public Sale saveSale(@RequestBody Sale sale) {
+		return saleRepository.save(sale);
     }
     
 	
 	@DeleteMapping("/{id}")
-	public void deleteProduct(@PathVariable(value="id") long id) {
-		productRepository.deleteById(id);
+	public void deleteSale(@PathVariable(value="id") long id) {
+		saleRepository.deleteById(id);
 	}
 	
 	@PutMapping("/{id}")
-	public Product updateProduct(@PathVariable(value="id") long id, @RequestBody Product product) {
-		return productRepository.save(product);
+	public Sale updateSale(@PathVariable(value="id") long id, @RequestBody Sale sale) {
+		return saleRepository.save(sale);
 	}
 }

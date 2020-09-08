@@ -16,37 +16,38 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@CrossOrigin
 @RestController
-@RequestMapping(value="/api")
-@CrossOrigin("/clients")
+@RequestMapping("/clients")
+
 public class ClientResource {
 	
 	@Autowired
 	ClientRepository clientRepository;
 	
-	@GetMapping("/clients")
+	@GetMapping
 	public List<Client> listClients(){
 		return clientRepository.findAll();
 	}
 	
-	@GetMapping("/clients/{id}")
+	@GetMapping("/{id}")
 	public Client listClient(@PathVariable(value="id") long id){
 		return clientRepository.findById(id);
 	}
 	
-	@PostMapping("/clients")
+	@PostMapping
 	public Client saveClient(@RequestBody Client client) {
 		return clientRepository.save(client);
     }
     
 	
-	@DeleteMapping("/clients")
-	public void deleteClient(@RequestBody Client client) {
-		clientRepository.delete(client);
+	@DeleteMapping("/{id}")
+	public void deleteClient(@PathVariable(value="id") long id){
+		clientRepository.deleteById(id);
 	}
 	
-	@PutMapping("/clients")
-	public Client updateClient(@RequestBody Client client) {
+	@PutMapping("/{id}")
+	public Client updateClient(@PathVariable(value="id") long id, @RequestBody Client client) {
 		return clientRepository.save(client);
 	}
 }
